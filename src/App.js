@@ -1,25 +1,42 @@
-import logo from './logo.svg';
-import './App.css';
+import React from "react";
+import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
+import LoginPage from "./LoginPage";
+import Dashboard from "./Dashboard"; // تصحيح الـ import
+import BookQuestions from "./BookQuestions";
+import PrivateRoute from "./PrivateRoute";
 
-function App() {
+export default function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <BrowserRouter>
+      <Routes>
+        {/* إعادة توجيه من الصفحة الرئيسية للوحة التحكم */}
+        <Route path="/" element={<Navigate to="/dashboard" />} />
+
+        {/* صفحة تسجيل الدخول */}
+        <Route path="/login" element={<LoginPage />} />
+
+        {/* لوحة التحكم محمية */}
+        <Route
+          path="/dashboard"
+          element={
+            <PrivateRoute>
+              <Dashboard />
+            </PrivateRoute>
+          }
+        />
+
+        {/* صفحة الأسئلة محمية */}
+        <Route
+          path="/books/:bookId/questions"
+          element={
+            <PrivateRoute>
+              <BookQuestions />
+            </PrivateRoute>
+          }
+        />
+        {/* إعادة توجيه أي مسار غير موجود */}
+        <Route path="*" element={<Navigate to="/dashboard" />} />
+      </Routes>
+    </BrowserRouter>
   );
 }
-
-export default App;
