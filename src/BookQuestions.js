@@ -532,6 +532,7 @@ export default function BookQuestions() {
         book: parseInt(bookId),
         book_title: book?.title || "",
         title: readingForm.title.trim(),
+        difficulty: readingForm.difficulty,
         content: readingForm.content.trim(),
         questions_data: readingForm.questions_data.map((q) => ({
           question: q.question.trim(),
@@ -1321,6 +1322,18 @@ export default function BookQuestions() {
                       🗑️ حذف
                     </button>
                   </div>
+                  <p className="question-difficulty">
+                    مستوى الصعوبة:{" "}
+                    <span
+                      className={`difficulty-${passage.difficulty || "easy"}`}
+                    >
+                      {(passage.difficulty || "easy") === "easy"
+                        ? "سهل"
+                        : (passage.difficulty || "easy") === "medium"
+                        ? "متوسط"
+                        : "صعب"}
+                    </span>
+                  </p>
 
                   <h4 className="reading-title">📖 {passage.title}</h4>
                   <div className="reading-content">
@@ -1734,6 +1747,20 @@ export default function BookQuestions() {
                   placeholder="اكتب محتوى القطعة هنا..."
                   required
                 />
+              </div>
+
+              <div className="form-group">
+                <label className="form-label">📊 مستوى الصعوبة:</label>
+                <select
+                  name="difficulty"
+                  value={readingForm.difficulty}
+                  onChange={handleReadingChange}
+                  className="form-select"
+                >
+                  <option value="easy">🟢 سهل</option>
+                  <option value="medium">🟡 متوسط</option>
+                  <option value="hard">🔴 صعب</option>
+                </select>
               </div>
 
               <div className="form-group reading-questions-section">
