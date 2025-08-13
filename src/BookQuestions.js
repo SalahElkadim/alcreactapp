@@ -202,6 +202,7 @@ export default function BookQuestions() {
     if (readingToEdit) {
       setReadingForm({
         title: readingToEdit.title,
+        difficulty:readingToEdit.difficulty,
         content: readingToEdit.content,
         questions_data: readingToEdit.questions_data || [],
       });
@@ -209,6 +210,7 @@ export default function BookQuestions() {
       setReadingForm({
         title: "",
         content: "",
+        difficulty:"easy",
         questions_data: [
           {
             question: "",
