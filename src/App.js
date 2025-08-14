@@ -4,7 +4,7 @@ import LoginPage from "./LoginPage";
 import Dashboard from "./Dashboard"; // تصحيح الـ import
 import BookQuestions from "./BookQuestions";
 import PrivateRoute from "./PrivateRoute";
-
+import PasswordResetConfirm from "./components/PasswordResetConfirm";
 export default function App() {
   return (
     <BrowserRouter>
@@ -36,6 +36,10 @@ export default function App() {
         />
         {/* إعادة توجيه أي مسار غير موجود */}
         <Route path="*" element={<Navigate to="/dashboard" />} />
+        <Route
+          path="/users/reset-password-confirm/:userId/:token"
+          component={PasswordResetConfirm}
+        />
       </Routes>
     </BrowserRouter>
   );
