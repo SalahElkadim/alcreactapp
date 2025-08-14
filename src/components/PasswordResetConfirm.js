@@ -1,4 +1,6 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
+import { useParams } from "react-router-dom";
+
 import {
   Eye,
   EyeOff,
@@ -16,21 +18,8 @@ const PasswordResetConfirm = () => {
   const [loading, setLoading] = useState(false);
   const [message, setMessage] = useState("");
   const [messageType, setMessageType] = useState(""); // 'success' or 'error'
-  const [token, setToken] = useState("");
-  const [userId, setUserId] = useState("");
 
-  // استخراج التوكين ومعرف المستخدم من الـ URL
-  useEffect(() => {
-    const currentUrl = window.location.pathname;
-    const urlParts = currentUrl.split("/");
-
-    // استخراج userId والتوكين من الـ URL
-    // URL format: /users/reset-password-confirm/{userId}/{token}/
-    if (urlParts.length >= 5) {
-      setUserId(urlParts[3]);
-      setToken(urlParts[4]);
-    }
-  }, []);
+  const { userId, token } = useParams();
 
   const validatePassword = (password) => {
     if (password.length < 8) {
