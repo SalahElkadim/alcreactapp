@@ -112,12 +112,30 @@ export default function BookQuestions() {
       setMatchingForm({
         text: matchingToEdit.text,
         difficulty: matchingToEdit.difficulty,
-        matching_pairs: matchingToEdit.matching_pairs.map((pair, index) => ({
-          id: pair.id,
-          match_key: pair.match_key || String.fromCharCode(65 + index), // A, B, C...
-          left_item: pair.left_item,
-          right_item: pair.right_item,
-        })),
+        matching_pairs: matchingToEdit.matching_pairs
+          ? // Handle new response format
+            Array.isArray(matchingToEdit.matching_pairs[0]?.left_item)
+            ? matchingToEdit.matching_pairs[0].left_item.map(
+                (leftItem, index) => ({
+                  id: index, // or use actual id if available
+                  match_key: String.fromCharCode(65 + index),
+                  left_item: leftItem,
+                  right_item:
+                    matchingToEdit.matching_pairs[1].right_item[index],
+                })
+              )
+            : // Handle old format if still exists
+              matchingToEdit.matching_pairs.map((pair, index) => ({
+                id: pair.id,
+                match_key: pair.match_key || String.fromCharCode(65 + index),
+                left_item: pair.left_item,
+                right_item: pair.right_item,
+              }))
+          : // Default if no matching_pairs
+            [
+              { match_key: "A", left_item: "", right_item: "" },
+              { match_key: "B", left_item: "", right_item: "" },
+            ],
       });
     } else {
       // Add mode - reset form
@@ -435,7 +453,7 @@ export default function BookQuestions() {
         book: parseInt(bookId),
         difficulty: matchingForm.difficulty,
         text: matchingForm.text.trim(),
-        matching_pairs: matchingForm.matching_pairs.map(
+        input_matching_pairs: matchingForm.matching_pairs.map(
           ({ id, match_key, left_item, right_item }) => ({
             ...(id && { id }), // Include id only if it exists (for edit)
             match_key,
@@ -1191,7 +1209,9 @@ export default function BookQuestions() {
                     </span>
                   </p>
 
-                  {q.matching_pairs?.length > 0 && (
+                  {(q.matching_pairs?.length > 0 ||
+                    (q.matching_pairs?.[0]?.left_item &&
+                      Array.isArray(q.matching_pairs[0].left_item))) && (
                     <table className="matching-table">
                       <thead>
                         <tr>
@@ -1201,13 +1221,27 @@ export default function BookQuestions() {
                         </tr>
                       </thead>
                       <tbody>
-                        {q.matching_pairs.map((pair) => (
-                          <tr key={pair.id}>
-                            <td>{pair.match_key}</td>
-                            <td>{pair.left_item}</td>
-                            <td>{pair.right_item}</td>
-                          </tr>
-                        ))}
+                        {Array.isArray(q.matching_pairs[0]?.left_item)
+                          ? // New format
+                            q.matching_pairs[0].left_item.map(
+                              (leftItem, index) => (
+                                <tr key={index}>
+                                  <td>{String.fromCharCode(65 + index)}</td>
+                                  <td>{leftItem}</td>
+                                  <td>
+                                    {q.matching_pairs[1].right_item[index]}
+                                  </td>
+                                </tr>
+                              )
+                            )
+                          : // Old format (fallback)
+                            q.matching_pairs.map((pair) => (
+                              <tr key={pair.id}>
+                                <td>{pair.match_key}</td>
+                                <td>{pair.left_item}</td>
+                                <td>{pair.right_item}</td>
+                              </tr>
+                            ))}
                       </tbody>
                     </table>
                   )}
