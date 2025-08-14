@@ -1,5 +1,7 @@
 import React, { useState } from "react";
 import { useParams } from "react-router-dom";
+import "./PasswordResetConfirm.css"; // استيراد ملف الـ CSS
+
 
 import {
   Eye,
