@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import { useParams } from "react-router-dom";
 import "./PasswordResetConfirm.css"; // استيراد ملف الـ CSS
 
-
 import {
   Eye,
   EyeOff,
@@ -93,55 +92,42 @@ const PasswordResetConfirm = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-purple-50 flex items-center justify-center p-4">
-      <div className="w-full max-w-md">
-        <div className="bg-white rounded-2xl shadow-xl p-8 border border-gray-100">
+    <div className="password-reset-container" dir="rtl">
+      <div className="password-reset-wrapper">
+        <div className="password-reset-card">
           {/* Header */}
-          <div className="text-center mb-8">
-            <div className="mx-auto w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center mb-4">
-              <Lock className="w-8 h-8 text-blue-600" />
+          <div className="password-reset-header">
+            <div className="password-reset-icon">
+              <Lock />
             </div>
-            <h1 className="text-2xl font-bold text-gray-800 mb-2">
-              إعادة تعيين كلمة المرور
-            </h1>
-            <p className="text-gray-600">قم بإدخال كلمة المرور الجديدة</p>
+            <h1 className="password-reset-title">إعادة تعيين كلمة المرور</h1>
+            <p className="password-reset-subtitle">
+              قم بإدخال كلمة المرور الجديدة
+            </p>
           </div>
 
           {/* Message */}
           {message && (
-            <div
-              className={`mb-6 p-4 rounded-lg flex items-center gap-3 ${
-                messageType === "success"
-                  ? "bg-green-50 text-green-700 border border-green-200"
-                  : "bg-red-50 text-red-700 border border-red-200"
-              }`}
-            >
-              {messageType === "success" ? (
-                <CheckCircle className="w-5 h-5" />
-              ) : (
-                <AlertCircle className="w-5 h-5" />
-              )}
-              <span className="text-sm">{message}</span>
+            <div className={`password-reset-message ${messageType}`}>
+              {messageType === "success" ? <CheckCircle /> : <AlertCircle />}
+              <span>{message}</span>
             </div>
           )}
 
           {/* Form */}
-          <div className="space-y-6">
+          <div className="password-reset-form">
             {/* New Password */}
-            <div>
-              <label
-                htmlFor="password"
-                className="block text-sm font-medium text-gray-700 mb-2"
-              >
+            <div className="password-reset-field">
+              <label htmlFor="password" className="password-reset-label">
                 كلمة المرور الجديدة
               </label>
-              <div className="relative">
+              <div className="password-reset-input-wrapper">
                 <input
                   id="password"
                   type={showPassword ? "text" : "password"}
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
-                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200"
+                  className="password-reset-input"
                   placeholder="أدخل كلمة المرور الجديدة"
                   required
                   minLength={8}
@@ -149,32 +135,25 @@ const PasswordResetConfirm = () => {
                 <button
                   type="button"
                   onClick={() => setShowPassword(!showPassword)}
-                  className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-gray-600 transition-colors"
+                  className="password-reset-toggle"
                 >
-                  {showPassword ? (
-                    <EyeOff className="w-5 h-5" />
-                  ) : (
-                    <Eye className="w-5 h-5" />
-                  )}
+                  {showPassword ? <EyeOff /> : <Eye />}
                 </button>
               </div>
             </div>
 
             {/* Confirm Password */}
-            <div>
-              <label
-                htmlFor="confirmPassword"
-                className="block text-sm font-medium text-gray-700 mb-2"
-              >
+            <div className="password-reset-field">
+              <label htmlFor="confirmPassword" className="password-reset-label">
                 تأكيد كلمة المرور
               </label>
-              <div className="relative">
+              <div className="password-reset-input-wrapper">
                 <input
                   id="confirmPassword"
                   type={showConfirmPassword ? "text" : "password"}
                   value={confirmPassword}
                   onChange={(e) => setConfirmPassword(e.target.value)}
-                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200"
+                  className="password-reset-input"
                   placeholder="أعد إدخال كلمة المرور"
                   required
                   minLength={8}
@@ -182,30 +161,26 @@ const PasswordResetConfirm = () => {
                 <button
                   type="button"
                   onClick={() => setShowConfirmPassword(!showConfirmPassword)}
-                  className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-gray-600 transition-colors"
+                  className="password-reset-toggle"
                 >
-                  {showConfirmPassword ? (
-                    <EyeOff className="w-5 h-5" />
-                  ) : (
-                    <Eye className="w-5 h-5" />
-                  )}
+                  {showConfirmPassword ? <EyeOff /> : <Eye />}
                 </button>
               </div>
             </div>
 
             {/* Password Requirements */}
-            <div className="text-xs text-gray-500 space-y-1">
+            <div className="password-requirements">
               <p>متطلبات كلمة المرور:</p>
-              <ul className="list-disc list-inside space-y-1 mr-4">
-                <li className={password.length >= 8 ? "text-green-600" : ""}>
+              <ul>
+                <li className={password.length >= 8 ? "text-green" : ""}>
                   8 أحرف على الأقل
                 </li>
                 <li
                   className={
                     password !== confirmPassword
-                      ? "text-red-600"
+                      ? "text-red"
                       : password && confirmPassword
-                      ? "text-green-600"
+                      ? "text-green"
                       : ""
                   }
                 >
@@ -219,11 +194,11 @@ const PasswordResetConfirm = () => {
               type="button"
               onClick={handleSubmit}
               disabled={loading || !password || !confirmPassword}
-              className="w-full bg-gradient-to-r from-blue-600 to-purple-600 text-white py-3 px-4 rounded-lg font-medium hover:from-blue-700 hover:to-purple-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-200 flex items-center justify-center gap-2"
+              className="password-reset-button"
             >
               {loading ? (
                 <>
-                  <Loader className="w-4 h-4 animate-spin" />
+                  <Loader className="loading" />
                   جاري التحديث...
                 </>
               ) : (
@@ -233,15 +208,9 @@ const PasswordResetConfirm = () => {
           </div>
 
           {/* Footer */}
-          <div className="mt-8 pt-6 border-t border-gray-100 text-center">
-            <p className="text-sm text-gray-500">
-              تذكرت كلمة المرور؟{" "}
-              <a
-                href="/login"
-                className="text-blue-600 hover:text-blue-700 font-medium"
-              >
-                تسجيل الدخول
-              </a>
+          <div className="password-reset-footer">
+            <p>
+              تذكرت كلمة المرور؟ <a href="/login">تسجيل الدخول</a>
             </p>
           </div>
         </div>
