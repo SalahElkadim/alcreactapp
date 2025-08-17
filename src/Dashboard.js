@@ -40,6 +40,11 @@ export default function Dashboard() {
   }, [message, error]);
 
   useEffect(() => {
+    const user = JSON.parse(localStorage.getItem("user") || "{}");
+    if (!user.is_staff) {
+      navigate("/login");
+      return;
+    }
     fetchBooks();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);

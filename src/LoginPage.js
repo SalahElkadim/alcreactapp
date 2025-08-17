@@ -14,6 +14,7 @@ export default function LoginPage() {
     e.preventDefault();
     setLoading(true);
     setError(null);
+
     try {
       const res = await axios.post(
         "https://alc-production-9985.up.railway.app/users/login/",
@@ -22,13 +23,32 @@ export default function LoginPage() {
           password,
         }
       );
+
+      // شيك إذا كان الـ user له صلاحيات admin
+      if (!res.data.user.is_staff) {
+        setError("ليس لديك صلاحيات الدخول لهذه الصفحة");
+        setLoading(false);
+        return;
+      }
+
       localStorage.setItem("access_token", res.data.tokens.access);
       localStorage.setItem("refresh_token", res.data.tokens.refresh);
       localStorage.setItem("user", JSON.stringify(res.data.user));
+
       setLoading(false);
       navigate("/add-book");
     } catch (err) {
-      setError("خطأ في تسجيل الدخول. تأكد من البيانات.");
+      console.error("Login error:", err);
+
+      // معالجة أفضل للأخطاء
+      if (err.response?.status === 401) {
+        setError("البريد الإلكتروني أو كلمة المرور غير صحيحة");
+      } else if (err.response?.status === 400) {
+        setError("يرجى التأكد من صحة البيانات المدخلة");
+      } else {
+        setError("خطأ في تسجيل الدخول. تأكد من البيانات وحاول مرة أخرى");
+      }
+
       setLoading(false);
     }
   };
@@ -36,7 +56,8 @@ export default function LoginPage() {
   return (
     <>
       <form onSubmit={handleLogin} className="login-form" dir="rtl">
-        <h2>لوحة التحكم  الخاصة ببرنامج ALC </h2>
+        <h2>لوحة التحكم الخاصة ببرنامج ALC</h2>
+
         <input
           type="email"
           placeholder="البريد الإلكتروني"
@@ -44,6 +65,7 @@ export default function LoginPage() {
           onChange={(e) => setEmail(e.target.value)}
           required
         />
+
         <input
           type="password"
           placeholder="كلمة المرور"
@@ -51,9 +73,11 @@ export default function LoginPage() {
           onChange={(e) => setPassword(e.target.value)}
           required
         />
+
         <button type="submit" disabled={loading}>
           {loading ? "جاري التسجيل..." : "تسجيل الدخول"}
         </button>
+
         {error && <p className="error-msg">{error}</p>}
       </form>
 
