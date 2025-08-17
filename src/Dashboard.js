@@ -41,13 +41,14 @@ export default function Dashboard() {
 
   useEffect(() => {
     fetchBooks();
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const fetchBooks = async () => {
     setFetchingBooks(true);
     try {
-      const res = await axios.get(`${API_BASE_URL}/books/`);
+      const headers = getAuthHeaders();
+      const res = await axios.get(`${API_BASE_URL}/books/`, { headers });
       setBooks(res.data);
       setError(null);
     } catch (err) {

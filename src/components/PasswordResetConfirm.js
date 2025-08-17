@@ -100,7 +100,9 @@ const PasswordResetConfirm = () => {
             <div className="password-reset-icon">
               <Lock />
             </div>
-            <h1 className="password-reset-title">إعادة تعيين كلمة المرور</h1>
+            <h1 className="password-reset-title">
+              إعادة تعيين كلمة المرور
+            </h1>
             <p className="password-reset-subtitle">
               قم بإدخال كلمة المرور الجديدة
             </p>
@@ -109,7 +111,11 @@ const PasswordResetConfirm = () => {
           {/* Message */}
           {message && (
             <div className={`password-reset-message ${messageType}`}>
-              {messageType === "success" ? <CheckCircle /> : <AlertCircle />}
+              {messageType === "success" ? (
+                <CheckCircle />
+              ) : (
+                <AlertCircle />
+              )}
               <span>{message}</span>
             </div>
           )}
@@ -118,7 +124,10 @@ const PasswordResetConfirm = () => {
           <div className="password-reset-form">
             {/* New Password */}
             <div className="password-reset-field">
-              <label htmlFor="password" className="password-reset-label">
+              <label
+                htmlFor="password"
+                className="password-reset-label"
+              >
                 كلمة المرور الجديدة
               </label>
               <div className="password-reset-input-wrapper">
@@ -144,7 +153,10 @@ const PasswordResetConfirm = () => {
 
             {/* Confirm Password */}
             <div className="password-reset-field">
-              <label htmlFor="confirmPassword" className="password-reset-label">
+              <label
+                htmlFor="confirmPassword"
+                className="password-reset-label"
+              >
                 تأكيد كلمة المرور
               </label>
               <div className="password-reset-input-wrapper">
@@ -210,7 +222,10 @@ const PasswordResetConfirm = () => {
           {/* Footer */}
           <div className="password-reset-footer">
             <p>
-              تذكرت كلمة المرور؟ <a href="/login">تسجيل الدخول</a>
+              تذكرت كلمة المرور؟{" "}
+              <a href="/login">
+                تسجيل الدخول
+              </a>
             </p>
           </div>
         </div>
