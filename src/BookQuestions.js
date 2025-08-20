@@ -1671,7 +1671,7 @@ export default function BookQuestions() {
                   onChange={handleTrueFalseChange}
                   rows={4}
                   className="form-textarea"
-                  placeholder="اكتب نص السؤال هنا... (مثال: هل صلاح يحب ميمي؟)"
+                  placeholder="اكتب نص السؤال هنا..."
                   required
                 />
               </div>
