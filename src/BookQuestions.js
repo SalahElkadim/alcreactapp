@@ -5,7 +5,7 @@ import "./dashboard.css";
 import "./BookQuestions.css";
 
 // Constants
-const API_BASE_URL = "https://alc-production-9985.up.railway.app/questions";
+const API_BASE_URL = "alc-production-8568.up.railway.app/questions";
 
 export default function BookQuestions() {
   const { bookId } = useParams();

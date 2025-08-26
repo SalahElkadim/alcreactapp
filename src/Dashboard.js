@@ -4,7 +4,7 @@ import "./dashboard.css";
 import { useNavigate } from "react-router-dom";
 
 // Constants
-const API_BASE_URL = "https://alc-production-9985.up.railway.app/questions";
+const API_BASE_URL = "https://alc-production-8568.up.railway.app/questions";
 
 export default function Dashboard() {
   const [books, setBooks] = useState([]);

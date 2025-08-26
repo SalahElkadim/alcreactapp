@@ -17,7 +17,7 @@ export default function LoginPage() {
 
     try {
       const res = await axios.post(
-        "https://alc-production-9985.up.railway.app/users/login/",
+        "https://alc-production-8568.up.railway.app/users/login/",
         {
           email,
           password,
