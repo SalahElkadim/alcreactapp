@@ -1,10 +1,15 @@
 import React from "react";
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import LoginPage from "./LoginPage";
-import Dashboard from "./Dashboard"; // تصحيح الـ import
+import Dashboard from "./Dashboard";
 import BookQuestions from "./BookQuestions";
 import PrivateRoute from "./PrivateRoute";
 import PasswordResetConfirm from "./components/PasswordResetConfirm";
+
+// استيراد صفحات الدفع
+import PaymentPage from "./PaymentPage";
+import PaymentStatusPage from "./PaymentStatusPage";
+
 export default function App() {
   return (
     <BrowserRouter>
@@ -34,8 +39,20 @@ export default function App() {
             </PrivateRoute>
           }
         />
+
+        {/* صفحة الدفع */}
+        <Route path="/payment" element={<PaymentPage />} />
+
+        {/* صفحة حالة الدفع */}
+        <Route
+          path="/payment-status/:paymentId"
+          element={<PaymentStatusPage />}
+        />
+
         {/* إعادة توجيه أي مسار غير موجود */}
         <Route path="*" element={<Navigate to="/dashboard" />} />
+
+        {/* صفحة إعادة تعيين كلمة المرور */}
         <Route
           path="/users/reset-password-confirm/:userId/:token"
           element={<PasswordResetConfirm />}
