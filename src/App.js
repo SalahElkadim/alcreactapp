@@ -6,9 +6,6 @@ import BookQuestions from "./BookQuestions";
 import PrivateRoute from "./PrivateRoute";
 import PasswordResetConfirm from "./components/PasswordResetConfirm";
 
-// استيراد صفحات الدفع
-import PaymentPage from "./PaymentPage";
-import PaymentStatusPage from "./PaymentStatusPage";
 
 export default function App() {
   return (
@@ -39,16 +36,6 @@ export default function App() {
             </PrivateRoute>
           }
         />
-
-        {/* صفحة الدفع */}
-        <Route path="/payment" element={<PaymentPage />} />
-
-        {/* صفحة حالة الدفع */}
-        <Route
-          path="/payment-status/:paymentId"
-          element={<PaymentStatusPage />}
-        />
-
         {/* إعادة توجيه أي مسار غير موجود */}
         <Route path="*" element={<Navigate to="/dashboard" />} />
 
