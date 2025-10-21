@@ -10,6 +10,7 @@ export default function Dashboard() {
   const [books, setBooks] = useState([]);
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
+  const [priceSar, setPriceSar] = useState(""); // 💰 حقل السعر الجديد
   const [editingBook, setEditingBook] = useState(null);
   const [loading, setLoading] = useState(false);
   const [message, setMessage] = useState(null);
@@ -79,6 +80,13 @@ export default function Dashboard() {
       setError("عنوان الكتاب مطلوب.");
       return false;
     }
+
+    // التحقق من صحة السعر
+    if (priceSar && (isNaN(priceSar) || parseFloat(priceSar) < 0)) {
+      setError("السعر يجب أن يكون رقم موجب.");
+      return false;
+    }
+
     return true;
   };
 
@@ -96,6 +104,7 @@ export default function Dashboard() {
       const bookData = {
         title: title.trim(),
         description: description.trim(),
+        price_sar: priceSar ? parseFloat(priceSar) : 0, // 💰 إرسال السعر
       };
 
       let res;
@@ -122,6 +131,7 @@ export default function Dashboard() {
       // Reset form
       setTitle("");
       setDescription("");
+      setPriceSar(""); // 💰 مسح حقل السعر
       setEditingBook(null);
     } catch (err) {
       console.error("Error adding/updating book:", err);
@@ -143,6 +153,7 @@ export default function Dashboard() {
   const handleEditBook = (book) => {
     setTitle(book.title);
     setDescription(book.description || "");
+    setPriceSar(book.price_sar ? book.price_sar.toString() : ""); // 💰 تعبئة السعر
     setEditingBook(book);
     setMessage(null);
     setError(null);
@@ -156,6 +167,7 @@ export default function Dashboard() {
   const handleCancelEdit = () => {
     setTitle("");
     setDescription("");
+    setPriceSar(""); // 💰 مسح السعر
     setEditingBook(null);
     setMessage(null);
     setError(null);
@@ -236,6 +248,17 @@ export default function Dashboard() {
           maxLength={1000}
         />
 
+        {/* 💰 حقل السعر الجديد */}
+        <input
+          type="number"
+          placeholder="السعر بالريال السعودي (اختياري)"
+          value={priceSar}
+          onChange={(e) => setPriceSar(e.target.value)}
+          className="dashboard-input"
+          min="0"
+          step="0.01"
+        />
+
         <div className="form-buttons">
           <button type="submit" disabled={loading} className="dashboard-button">
             {loading
@@ -279,6 +302,10 @@ export default function Dashboard() {
                   {book.description && (
                     <p title={book.description}>{book.description}</p>
                   )}
+                  {/* 💰 عرض السعر */}
+                  <p className="book-price">
+                    السعر: {book.price_sar ? `${book.price_sar} ر.س` : "مجاني"}
+                  </p>
                   <small className="book-id">ID: {book.id}</small>
                 </div>
                 <div className="action-buttons">
