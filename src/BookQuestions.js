@@ -363,7 +363,7 @@ export default function BookQuestions() {
 
       // Prepare data for API
       const postData = {
-        book: parseInt(bookId),
+        book: bookId,
         difficulty: mcqForm.difficulty,
         text: mcqForm.text.trim(),
         mcq_choices: mcqForm.mcq_choices.map(({ id, text, is_correct }) => ({
@@ -450,7 +450,7 @@ export default function BookQuestions() {
 
       // Prepare data for API
       const postData = {
-        book: parseInt(bookId),
+        book: bookId,
         difficulty: matchingForm.difficulty,
         text: matchingForm.text.trim(),
         input_matching_pairs: matchingForm.matching_pairs.map(
@@ -547,7 +547,7 @@ export default function BookQuestions() {
       }
 
       const postData = {
-        book: parseInt(bookId),
+        book: bookId,
         book_title: book?.title || "",
         title: readingForm.title.trim(),
         difficulty: readingForm.difficulty,
@@ -628,7 +628,7 @@ export default function BookQuestions() {
 
       // Prepare data for API
       const postData = {
-        book: parseInt(bookId),
+        book: bookId,
         difficulty: trueFalseForm.difficulty,
         text: trueFalseForm.text.trim(),
         is_true: trueFalseForm.is_true ? "True" : "False", // Convert to string as per API requirement
@@ -922,7 +922,8 @@ export default function BookQuestions() {
 
   // Initialize component
   useEffect(() => {
-    if (!bookId || isNaN(bookId)) {
+    if (!bookId || !bookId.trim()) {
+      // ✅ بس نتأكد إن فيه قيمة
       setError("معرف الكتاب غير صالح.");
       return;
     }
