@@ -18,6 +18,10 @@ export default function Dashboard() {
   const [fetchingBooks, setFetchingBooks] = useState(true);
   const navigate = useNavigate();
 
+  // 🆕 حالات طلبات نسيان كلمة المرور
+  const [resetRequests, setResetRequests] = useState([]);
+  const [loadingRequests, setLoadingRequests] = useState(false);
+
   // Helper function to get auth headers
   const getAuthHeaders = useCallback(() => {
     const accessToken = localStorage.getItem("access_token");
@@ -50,6 +54,12 @@ export default function Dashboard() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
+  // 🆕 استدعاء الطلبات مرة واحدة عند فتح الصفحة
+  useEffect(() => {
+    fetchResetRequests();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
   const fetchBooks = async () => {
     setFetchingBooks(true);
     try {
@@ -68,6 +78,42 @@ export default function Dashboard() {
       }
     } finally {
       setFetchingBooks(false);
+    }
+  };
+
+  // 🆕 جلب طلبات نسيان كلمة المرور
+  const fetchResetRequests = async () => {
+    setLoadingRequests(true);
+    try {
+      const headers = getAuthHeaders();
+      const res = await axios.get(
+        "https://alc-production-5d34.up.railway.app/users/password-reset-requests/",
+        { headers }
+      );
+      setResetRequests(res.data);
+    } catch (err) {
+      console.error("Error fetching reset requests:", err);
+      setError("حدث خطأ أثناء تحميل طلبات نسيان كلمة المرور.");
+    } finally {
+      setLoadingRequests(false);
+    }
+  };
+
+  // 🆕 تحديث حالة الطلب كمعالج
+  const handleMarkAsHandled = async (id) => {
+    try {
+      const headers = getAuthHeaders();
+      await axios.patch(
+        `https://alc-production-5d34.up.railway.app/users/password-reset-requests/${id}/`,
+        { is_handled: true },
+        { headers }
+      );
+      setResetRequests((prev) =>
+        prev.map((r) => (r.id === id ? { ...r, is_handled: true } : r))
+      );
+    } catch (err) {
+      console.error("Error updating request:", err);
+      setError("حدث خطأ أثناء تحديث الحالة.");
     }
   };
 
@@ -329,6 +375,50 @@ export default function Dashboard() {
                   >
                     عرض الأسئلة
                   </button>
+                </div>
+              </li>
+            ))}
+          </ul>
+        )}
+      </div>
+
+      {/* Password Reset Requests Section */}
+      <div className="reset-requests-section">
+        <h3>طلبات نسيان كلمة المرور ({resetRequests.length})</h3>
+        {loadingRequests ? (
+          <p>جاري تحميل الطلبات...</p>
+        ) : resetRequests.length === 0 ? (
+          <p className="no-requests">لا توجد طلبات جديدة.</p>
+        ) : (
+          <ul className="reset-requests-list">
+            {resetRequests.map((req) => (
+              <li key={req.id} className={req.is_handled ? "handled" : ""}>
+                <div>
+                  <strong>📧 {req.email}</strong>
+                  <br />
+                  <a
+                    href={req.reset_link}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    رابط إعادة التعيين
+                  </a>
+                  <br />
+                  <small>
+                    ⏰ {new Date(req.created_at).toLocaleString("ar-EG")}
+                  </small>
+                </div>
+                <div>
+                  {req.is_handled ? (
+                    <span className="status-done">✅ تم الرد</span>
+                  ) : (
+                    <button
+                      className="mark-done-btn"
+                      onClick={() => handleMarkAsHandled(req.id)}
+                    >
+                      تم الرد
+                    </button>
+                  )}
                 </div>
               </li>
             ))}

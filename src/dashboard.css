@@ -533,3 +533,42 @@
   animation: spin 1s linear infinite;
   margin-right: 10px;
 }
+.reset-requests-section {
+  margin-top: 40px;
+  padding: 20px;
+  border-top: 2px solid #ccc;
+}
+
+.reset-requests-list {
+  list-style: none;
+  padding: 0;
+}
+
+.reset-requests-list li {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  background: #fafafa;
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  padding: 10px 15px;
+  margin-bottom: 10px;
+}
+
+.reset-requests-list li.handled {
+  background: #e9ffe9;
+}
+
+.mark-done-btn {
+  background-color: #4caf50;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  padding: 5px 10px;
+  cursor: pointer;
+}
+
+.status-done {
+  color: green;
+  font-weight: bold;
+}
