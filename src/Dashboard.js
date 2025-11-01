@@ -10,7 +10,7 @@ export default function Dashboard() {
   const [books, setBooks] = useState([]);
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
-  const [priceSar, setPriceSar] = useState(""); // 💰 حقل السعر الجديد
+  const [priceSar, setPriceSar] = useState("");
   const [editingBook, setEditingBook] = useState(null);
   const [loading, setLoading] = useState(false);
   const [message, setMessage] = useState(null);
@@ -18,9 +18,9 @@ export default function Dashboard() {
   const [fetchingBooks, setFetchingBooks] = useState(true);
   const navigate = useNavigate();
 
-  // 🆕 حالات طلبات نسيان كلمة المرور
   const [resetRequests, setResetRequests] = useState([]);
   const [loadingRequests, setLoadingRequests] = useState(false);
+  const [copiedId, setCopiedId] = useState(null);
 
   // Helper function to get auth headers
   const getAuthHeaders = useCallback(() => {
@@ -54,7 +54,6 @@ export default function Dashboard() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  // 🆕 استدعاء الطلبات مرة واحدة عند فتح الصفحة
   useEffect(() => {
     fetchResetRequests();
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -71,7 +70,6 @@ export default function Dashboard() {
       console.error("Error fetching books:", err);
       setError("حدث خطأ أثناء تحميل الكتب.");
 
-      // If unauthorized, redirect to login
       if (err.response?.status === 401) {
         localStorage.removeItem("access_token");
         navigate("/login");
@@ -81,7 +79,6 @@ export default function Dashboard() {
     }
   };
 
-  // 🆕 جلب طلبات نسيان كلمة المرور
   const fetchResetRequests = async () => {
     setLoadingRequests(true);
     try {
@@ -99,7 +96,6 @@ export default function Dashboard() {
     }
   };
 
-  // 🆕 تحديث حالة الطلب كمعالج
   const handleMarkAsHandled = async (id) => {
     try {
       const headers = getAuthHeaders();
@@ -117,6 +113,18 @@ export default function Dashboard() {
     }
   };
 
+  // وظيفة النسخ
+  const handleCopyLink = async (link, id) => {
+    try {
+      await navigator.clipboard.writeText(link);
+      setCopiedId(id);
+      setTimeout(() => setCopiedId(null), 2000);
+    } catch (err) {
+      console.error("Failed to copy:", err);
+      alert("فشل نسخ الرابط");
+    }
+  };
+
   const handleViewQuestions = (bookId) => {
     navigate(`/books/${bookId}/questions`);
   };
@@ -127,7 +135,6 @@ export default function Dashboard() {
       return false;
     }
 
-    // التحقق من صحة السعر
     if (priceSar && (isNaN(priceSar) || parseFloat(priceSar) < 0)) {
       setError("السعر يجب أن يكون رقم موجب.");
       return false;
@@ -150,12 +157,11 @@ export default function Dashboard() {
       const bookData = {
         title: title.trim(),
         description: description.trim(),
-        price_sar: priceSar ? parseFloat(priceSar) : 0, // 💰 إرسال السعر
+        price_sar: priceSar ? parseFloat(priceSar) : 0,
       };
 
       let res;
       if (editingBook) {
-        // تحديث كتاب موجود
         res = await axios.put(
           `${API_BASE_URL}/books/${editingBook.id}/`,
           bookData,
@@ -168,16 +174,14 @@ export default function Dashboard() {
         );
         setMessage("تم تحديث الكتاب بنجاح.");
       } else {
-        // إضافة كتاب جديد
         res = await axios.post(`${API_BASE_URL}/books/`, bookData, { headers });
         setBooks((prevBooks) => [...prevBooks, res.data]);
         setMessage("تم إضافة الكتاب بنجاح.");
       }
 
-      // Reset form
       setTitle("");
       setDescription("");
-      setPriceSar(""); // 💰 مسح حقل السعر
+      setPriceSar("");
       setEditingBook(null);
     } catch (err) {
       console.error("Error adding/updating book:", err);
@@ -199,12 +203,11 @@ export default function Dashboard() {
   const handleEditBook = (book) => {
     setTitle(book.title);
     setDescription(book.description || "");
-    setPriceSar(book.price_sar ? book.price_sar.toString() : ""); // 💰 تعبئة السعر
+    setPriceSar(book.price_sar ? book.price_sar.toString() : "");
     setEditingBook(book);
     setMessage(null);
     setError(null);
 
-    // Scroll to form
     document.querySelector(".dashboard-form")?.scrollIntoView({
       behavior: "smooth",
     });
@@ -213,7 +216,7 @@ export default function Dashboard() {
   const handleCancelEdit = () => {
     setTitle("");
     setDescription("");
-    setPriceSar(""); // 💰 مسح السعر
+    setPriceSar("");
     setEditingBook(null);
     setMessage(null);
     setError(null);
@@ -231,7 +234,6 @@ export default function Dashboard() {
       setBooks((prevBooks) => prevBooks.filter((book) => book.id !== id));
       setMessage("تم حذف الكتاب بنجاح.");
 
-      // If we were editing this book, cancel the edit
       if (editingBook?.id === id) {
         handleCancelEdit();
       }
@@ -263,7 +265,6 @@ export default function Dashboard() {
 
   return (
     <div className="dashboard-container">
-      {/* Header with logout button */}
       <div className="dashboard-header">
         <h1>إدارة الكتب</h1>
         <button onClick={handleLogout} className="logout-btn">
@@ -271,7 +272,6 @@ export default function Dashboard() {
         </button>
       </div>
 
-      {/* Add/Edit Form */}
       <form onSubmit={handleAddOrUpdateBook} className="dashboard-form">
         <h2>{editingBook ? "تعديل الكتاب" : "إضافة كتاب جديد"}</h2>
 
@@ -294,7 +294,6 @@ export default function Dashboard() {
           maxLength={1000}
         />
 
-        {/* 💰 حقل السعر الجديد */}
         <input
           type="number"
           placeholder="السعر بالريال السعودي (اختياري)"
@@ -330,7 +329,6 @@ export default function Dashboard() {
         {error && <p className="message-error">{error}</p>}
       </form>
 
-      {/* Books List */}
       <div className="books-list">
         <h3>قائمة الكتب ({books.length})</h3>
 
@@ -348,7 +346,6 @@ export default function Dashboard() {
                   {book.description && (
                     <p title={book.description}>{book.description}</p>
                   )}
-                  {/* 💰 عرض السعر */}
                   <p className="book-price">
                     السعر: {book.price_sar ? `${book.price_sar} ر.س` : "مجاني"}
                   </p>
@@ -382,7 +379,6 @@ export default function Dashboard() {
         )}
       </div>
 
-      {/* Password Reset Requests Section */}
       <div className="reset-requests-section">
         <h3>طلبات نسيان كلمة المرور ({resetRequests.length})</h3>
         {loadingRequests ? (
@@ -395,15 +391,23 @@ export default function Dashboard() {
               <li key={req.id} className={req.is_handled ? "handled" : ""}>
                 <div>
                   <strong>📧 {req.email}</strong>
-                  <br />
-                  <a
-                    href={req.reset_link}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                  >
-                    رابط إعادة التعيين
-                  </a>
-                  <br />
+                  <div className="reset-link-container">
+                    <a
+                      href={req.reset_link}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      رابط إعادة التعيين
+                    </a>
+                    <button
+                      className={`copy-btn ${
+                        copiedId === req.id ? "copied" : ""
+                      }`}
+                      onClick={() => handleCopyLink(req.reset_link, req.id)}
+                    >
+                      {copiedId === req.id ? "✓ تم النسخ" : "📋 نسخ"}
+                    </button>
+                  </div>
                   <small>
                     ⏰ {new Date(req.created_at).toLocaleString("ar-EG")}
                   </small>

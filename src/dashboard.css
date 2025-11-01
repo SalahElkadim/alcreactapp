@@ -1,35 +1,37 @@
 @import url('https://fonts.googleapis.com/css2?family=Tajawal&display=swap');
+
 .dashboard-container {
   max-width: 1200px;
   margin: 0 auto;
   padding: 20px;
   font-family: 'Tajawal', Arial, sans-serif;
   direction: rtl;
+  background-color: #f8fafc;
 }
 
 /* Reading Passages Styles */
 .reading-passage {
   margin-bottom: 1.5rem;
   padding: 1rem;
-  background: linear-gradient(145deg, #f0f9ff 0%, #e0f2fe 100%);
-  border: 1px solid #0ea5e9;
-  border-radius: 12px;
-  box-shadow: 0 2px 8px rgba(14, 165, 233, 0.1);
+  background: linear-gradient(to bottom, #ffffff 0%, #f0f9ff 100%);
+  border: 1px solid #bfdbfe;
+  border-radius: 6px;
+  box-shadow: 0 1px 3px rgba(59, 130, 246, 0.1);
 }
 
 .reading-passage-title {
-  color: #0c4a6e;
+  color: #1e40af;
   margin-bottom: 0.75rem;
   font-size: 1.1rem;
   font-weight: 600;
-  border-bottom: 2px solid #0ea5e9;
+  border-bottom: 2px solid #3b82f6;
   padding-bottom: 0.5rem;
 }
 
 .reading-passage-content {
   background: #ffffff;
   padding: 1rem;
-  border-radius: 8px;
+  border-radius: 4px;
   margin-bottom: 0.75rem;
   border: 1px solid #e0e7ff;
   max-height: 400px;
@@ -38,21 +40,21 @@
   white-space: pre-wrap;
   line-height: 1.8;
   text-align: justify;
-  box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1);
+  box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.05);
 }
 
 .reading-passage-content::-webkit-scrollbar {
-  width: 8px;
+  width: 6px;
 }
 
 .reading-passage-content::-webkit-scrollbar-track {
   background: #f1f5f9;
-  border-radius: 4px;
+  border-radius: 3px;
 }
 
 .reading-passage-content::-webkit-scrollbar-thumb {
   background: #cbd5e1;
-  border-radius: 4px;
+  border-radius: 3px;
 }
 
 .reading-passage-content::-webkit-scrollbar-thumb:hover {
@@ -60,13 +62,13 @@
 }
 
 .reading-passage-meta {
-  color: #374151;
+  color: #475569;
   font-size: 0.9rem;
   margin: 0;
   padding: 0.5rem;
-  background: rgba(255, 255, 255, 0.5);
-  border-radius: 6px;
-  border: 1px solid #e5e7eb;
+  background: #f8fafc;
+  border-radius: 4px;
+  border: 1px solid #e2e8f0;
 }
 
 /* Questions Container Styles */
@@ -79,15 +81,15 @@
   padding: 1.25rem;
   background: #ffffff;
   border: 1px solid #e5e7eb;
-  border-radius: 10px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
-  transition: all 0.3s ease;
+  border-radius: 6px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+  transition: all 0.2s ease;
 }
 
 .question-card:hover {
   transform: translateY(-1px);
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-  border-color: #667eea;
+  box-shadow: 0 2px 6px rgba(59, 130, 246, 0.15);
+  border-color: #3b82f6;
 }
 
 .question-text {
@@ -102,15 +104,15 @@
   color: #059669;
   font-weight: 600;
   padding: 0.5rem;
-  background: #ecfdf5;
-  border-radius: 6px;
-  border-right: 4px solid #10b981;
+  background: #f0fdf4;
+  border-radius: 4px;
+  border-right: 3px solid #10b981;
 }
 
 /* Section Headers */
 .section-header {
   color: #1f2937;
-  border-bottom: 3px solid #4f46e5;
+  border-bottom: 2px solid #3b82f6;
   padding-bottom: 0.75rem;
   margin-bottom: 1.5rem;
   font-size: 1.3rem;
@@ -121,10 +123,10 @@
 }
 
 .section-counter {
-  background: #4f46e5;
+  background: #3b82f6;
   color: white;
   padding: 0.25rem 0.75rem;
-  border-radius: 20px;
+  border-radius: 12px;
   font-size: 0.9rem;
   font-weight: 500;
 }
@@ -140,13 +142,13 @@
   padding: 0.5rem 0.75rem;
   background: #f8fafc;
   border: 1px solid #e2e8f0;
-  border-radius: 6px;
+  border-radius: 4px;
   transition: all 0.2s ease;
 }
 
 .mcq-choice:hover {
-  background: #f1f5f9;
-  border-color: #cbd5e1;
+  background: #eff6ff;
+  border-color: #93c5fd;
 }
 
 /* Matching Table Styles */
@@ -155,16 +157,8 @@
   border-collapse: collapse;
   margin-top: 0.75rem;
   border: 1px solid #d1d5db;
-  border-radius: 8px;
+  border-radius: 6px;
   overflow: hidden;
-}
-/* Enhanced Dashboard CSS */
-.dashboard-container {
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 20px;
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  direction: rtl;
 }
 
 /* Header Styles */
@@ -174,10 +168,10 @@
   align-items: center;
   margin-bottom: 30px;
   padding: 20px;
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-  border-radius: 12px;
+  background: linear-gradient(to left, #3b82f6 0%, #2563eb 100%);
+  border-radius: 6px;
   color: white;
-  box-shadow: 0 4px 15px rgba(102, 126, 234, 0.2);
+  box-shadow: 0 2px 8px rgba(59, 130, 246, 0.2);
 }
 
 .dashboard-header h1 {
@@ -187,19 +181,19 @@
 }
 
 .logout-btn {
-  background: rgba(255, 255, 255, 0.2);
-  border: 1px solid rgba(255, 255, 255, 0.3);
+  background: rgba(255, 255, 255, 0.15);
+  border: 1px solid rgba(255, 255, 255, 0.2);
   color: white;
   padding: 10px 20px;
-  border-radius: 25px;
+  border-radius: 6px;
   cursor: pointer;
   font-size: 14px;
-  transition: all 0.3s ease;
-  backdrop-filter: blur(10px);
+  transition: all 0.2s ease;
+  font-weight: 500;
 }
 
 .logout-btn:hover {
-  background: rgba(255, 255, 255, 0.3);
+  background: rgba(255, 255, 255, 0.25);
   transform: translateY(-1px);
 }
 
@@ -207,8 +201,8 @@
 .dashboard-form {
   background: white;
   padding: 30px;
-  border-radius: 15px;
-  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+  border-radius: 6px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
   margin-bottom: 40px;
   border: 1px solid #e5e7eb;
 }
@@ -223,21 +217,21 @@
 
 .dashboard-input, .dashboard-textarea {
   width: 100%;
-  padding: 15px;
-  border: 2px solid #e5e7eb;
-  border-radius: 10px;
+  padding: 12px 15px;
+  border: 1px solid #d1d5db;
+  border-radius: 6px;
   font-size: 16px;
   margin-bottom: 20px;
-  transition: all 0.3s ease;
+  transition: all 0.2s ease;
   box-sizing: border-box;
   font-family: inherit;
+  background: white;
 }
 
 .dashboard-input:focus, .dashboard-textarea:focus {
   outline: none;
-  border-color: #667eea;
-  box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
-  transform: translateY(-1px);
+  border-color: #3b82f6;
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
 }
 
 .dashboard-textarea {
@@ -255,24 +249,25 @@
 }
 
 .dashboard-button, .cancel-button {
-  padding: 15px 30px;
+  padding: 12px 28px;
   border: none;
-  border-radius: 10px;
+  border-radius: 6px;
   font-size: 16px;
   font-weight: 600;
   cursor: pointer;
-  transition: all 0.3s ease;
+  transition: all 0.2s ease;
   min-width: 150px;
 }
 
 .dashboard-button {
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  background: #3b82f6;
   color: white;
 }
 
 .dashboard-button:hover:not(:disabled) {
-  transform: translateY(-2px);
-  box-shadow: 0 8px 25px rgba(102, 126, 234, 0.3);
+  background: #2563eb;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(59, 130, 246, 0.3);
 }
 
 .dashboard-button:disabled {
@@ -294,8 +289,8 @@
 
 /* Message Styles */
 .message-success, .message-error {
-  padding: 15px 20px;
-  border-radius: 10px;
+  padding: 12px 20px;
+  border-radius: 6px;
   margin-top: 15px;
   font-weight: 500;
   text-align: center;
@@ -303,15 +298,15 @@
 }
 
 .message-success {
-  background: #ecfdf5;
+  background: #f0fdf4;
   color: #059669;
-  border: 1px solid #a7f3d0;
+  border: 1px solid #bbf7d0;
 }
 
 .message-error {
   background: #fef2f2;
   color: #dc2626;
-  border: 1px solid #fca5a5;
+  border: 1px solid #fecaca;
 }
 
 @keyframes slideIn {
@@ -329,8 +324,8 @@
 .books-list {
   background: white;
   padding: 30px;
-  border-radius: 15px;
-  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+  border-radius: 6px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
   border: 1px solid #e5e7eb;
 }
 
@@ -339,7 +334,7 @@
   margin-bottom: 25px;
   font-size: 1.4rem;
   font-weight: 600;
-  border-bottom: 3px solid #667eea;
+  border-bottom: 2px solid #3b82f6;
   padding-bottom: 10px;
 }
 
@@ -356,21 +351,22 @@
   padding: 20px;
   margin-bottom: 15px;
   border: 1px solid #e5e7eb;
-  border-radius: 12px;
+  border-radius: 6px;
   background: #fafafa;
-  transition: all 0.3s ease;
+  transition: all 0.2s ease;
 }
 
 .books-list li:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
-  border-color: #667eea;
+  transform: translateY(-1px);
+  box-shadow: 0 3px 10px rgba(59, 130, 246, 0.15);
+  border-color: #3b82f6;
+  background: white;
 }
 
 .books-list li.editing {
   border-color: #f59e0b;
   background: #fffbeb;
-  box-shadow: 0 0 0 3px rgba(245, 158, 11, 0.1);
+  box-shadow: 0 0 0 2px rgba(245, 158, 11, 0.1);
 }
 
 .book-info {
@@ -392,6 +388,11 @@
   max-width: 500px;
 }
 
+.book-price {
+  color: #3b82f6;
+  font-weight: 600;
+}
+
 .book-id {
   color: #9ca3af;
   font-size: 0.8rem;
@@ -408,21 +409,21 @@
 .edit-btn, .delete-btn, .view-questions-btn {
   padding: 8px 16px;
   border: none;
-  border-radius: 8px;
+  border-radius: 6px;
   font-size: 14px;
   font-weight: 500;
   cursor: pointer;
-  transition: all 0.3s ease;
+  transition: all 0.2s ease;
   min-width: 80px;
 }
 
 .edit-btn {
-  background: #fbbf24;
+  background: #f59e0b;
   color: white;
 }
 
 .edit-btn:hover:not(:disabled) {
-  background: #f59e0b;
+  background: #d97706;
   transform: translateY(-1px);
 }
 
@@ -460,14 +461,123 @@
   font-size: 1.1rem;
 }
 
-.no-books {
+.no-books, .no-requests {
   text-align: center;
   color: #6b7280;
   font-style: italic;
   padding: 40px 20px;
   background: #f9fafb;
-  border-radius: 10px;
+  border-radius: 6px;
   border: 1px dashed #d1d5db;
+}
+
+/* Password Reset Requests Section */
+.reset-requests-section {
+  margin-top: 40px;
+  padding: 30px;
+  background: white;
+  border-radius: 6px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+  border: 1px solid #e5e7eb;
+}
+
+.reset-requests-section h3 {
+  color: #1f2937;
+  margin-bottom: 25px;
+  font-size: 1.4rem;
+  font-weight: 600;
+  border-bottom: 2px solid #3b82f6;
+  padding-bottom: 10px;
+}
+
+.reset-requests-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.reset-requests-list li {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  background: #fafafa;
+  border: 1px solid #e5e7eb;
+  border-radius: 6px;
+  padding: 15px;
+  margin-bottom: 12px;
+  transition: all 0.2s ease;
+}
+
+.reset-requests-list li:hover {
+  background: white;
+  border-color: #3b82f6;
+  box-shadow: 0 2px 6px rgba(59, 130, 246, 0.1);
+}
+
+.reset-requests-list li.handled {
+  background: #f0fdf4;
+  border-color: #bbf7d0;
+}
+
+.reset-link-container {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin: 8px 0;
+}
+
+.reset-link-container a {
+  color: #3b82f6;
+  text-decoration: none;
+  word-break: break-all;
+}
+
+.reset-link-container a:hover {
+  text-decoration: underline;
+}
+
+.copy-btn {
+  background: #3b82f6;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  padding: 4px 8px;
+  cursor: pointer;
+  font-size: 12px;
+  transition: all 0.2s ease;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+.copy-btn:hover {
+  background: #2563eb;
+}
+
+.copy-btn.copied {
+  background: #10b981;
+}
+
+.mark-done-btn {
+  background: #10b981;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  padding: 8px 16px;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 500;
+  transition: all 0.2s ease;
+}
+
+.mark-done-btn:hover {
+  background: #059669;
+  transform: translateY(-1px);
+}
+
+.status-done {
+  color: #059669;
+  font-weight: 600;
+  font-size: 14px;
 }
 
 /* Responsive Design */
@@ -486,11 +596,11 @@
     font-size: 1.5rem;
   }
   
-  .dashboard-form, .books-list {
+  .dashboard-form, .books-list, .reset-requests-section {
     padding: 20px 15px;
   }
   
-  .books-list li {
+  .books-list li, .reset-requests-list li {
     flex-direction: column;
     gap: 15px;
   }
@@ -528,47 +638,8 @@
   width: 20px;
   height: 20px;
   border: 2px solid #e5e7eb;
-  border-top: 2px solid #667eea;
+  border-top: 2px solid #3b82f6;
   border-radius: 50%;
   animation: spin 1s linear infinite;
   margin-right: 10px;
-}
-.reset-requests-section {
-  margin-top: 40px;
-  padding: 20px;
-  border-top: 2px solid #ccc;
-}
-
-.reset-requests-list {
-  list-style: none;
-  padding: 0;
-}
-
-.reset-requests-list li {
-  display: flex;
-  justify-content: space-between;
-  align-items: flex-start;
-  background: #fafafa;
-  border: 1px solid #ddd;
-  border-radius: 10px;
-  padding: 10px 15px;
-  margin-bottom: 10px;
-}
-
-.reset-requests-list li.handled {
-  background: #e9ffe9;
-}
-
-.mark-done-btn {
-  background-color: #4caf50;
-  color: white;
-  border: none;
-  border-radius: 8px;
-  padding: 5px 10px;
-  cursor: pointer;
-}
-
-.status-done {
-  color: green;
-  font-weight: bold;
 }
