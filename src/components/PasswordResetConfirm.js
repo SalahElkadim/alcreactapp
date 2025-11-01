@@ -55,7 +55,7 @@ const PasswordResetConfirm = () => {
 
     try {
       const response = await fetch(
-        `https://alc-production-8568.up.railway.app/users/reset-password-confirm/${userId}/${token}/`,
+        `https://alc-production-5d34.up.railway.app/users/reset-password-confirm/${userId}/${token}/`,
         {
           method: "POST",
           headers: {
