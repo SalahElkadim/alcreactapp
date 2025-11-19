@@ -361,7 +361,6 @@ export default function BookQuestions() {
         return;
       }
 
-      // Prepare data for API
       const postData = {
         book: parseInt(bookId, 10),
         difficulty: mcqForm.difficulty,
