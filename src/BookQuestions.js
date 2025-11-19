@@ -363,7 +363,7 @@ export default function BookQuestions() {
 
       // Prepare data for API
       const postData = {
-        book: bookId,
+        book: parseInt(bookId, 10),
         difficulty: mcqForm.difficulty,
         text: mcqForm.text.trim(),
         mcq_choices: mcqForm.mcq_choices.map(({ id, text, is_correct }) => ({
