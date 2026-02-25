@@ -645,6 +645,8 @@ export default function BookQuestions() {
         );
       } else {
         // Create new True/False question
+        // Create new True/False question
+
         response = await axios.post(
           `${API_BASE_URL}/truefalse-questions/`,
           postData,
