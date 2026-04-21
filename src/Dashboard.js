@@ -378,57 +378,6 @@ export default function Dashboard() {
           </ul>
         )}
       </div>
-
-      <div className="reset-requests-section">
-        <h3>طلبات نسيان كلمة المرور ({resetRequests.length})</h3>
-        {loadingRequests ? (
-          <p>جاري تحميل الطلبات...</p>
-        ) : resetRequests.length === 0 ? (
-          <p className="no-requests">لا توجد طلبات جديدة.</p>
-        ) : (
-          <ul className="reset-requests-list">
-            {resetRequests.map((req) => (
-              <li key={req.id} className={req.is_handled ? "handled" : ""}>
-                <div>
-                  <strong>📧 {req.email}</strong>
-                  <div className="reset-link-container">
-                    <a
-                      href={req.reset_link}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                    >
-                      رابط إعادة التعيين
-                    </a>
-                    <button
-                      className={`copy-btn ${
-                        copiedId === req.id ? "copied" : ""
-                      }`}
-                      onClick={() => handleCopyLink(req.reset_link, req.id)}
-                    >
-                      {copiedId === req.id ? "✓ تم النسخ" : "📋 نسخ"}
-                    </button>
-                  </div>
-                  <small>
-                    ⏰ {new Date(req.created_at).toLocaleString("ar-EG")}
-                  </small>
-                </div>
-                <div>
-                  {req.is_handled ? (
-                    <span className="status-done">✅ تم الرد</span>
-                  ) : (
-                    <button
-                      className="mark-done-btn"
-                      onClick={() => handleMarkAsHandled(req.id)}
-                    >
-                      تم الرد
-                    </button>
-                  )}
-                </div>
-              </li>
-            ))}
-          </ul>
-        )}
-      </div>
     </div>
   );
 }
